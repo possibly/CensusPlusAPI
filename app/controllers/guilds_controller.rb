@@ -4,7 +4,7 @@ class GuildsController < ApplicationController
   # GET /guilds
   # GET /guilds.json
   def index
-    @guilds = Guild.all
+    @guilds = Guild.all.where(guild_params)
   end
 
   # GET /guilds/1
