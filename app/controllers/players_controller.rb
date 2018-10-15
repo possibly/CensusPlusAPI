@@ -4,7 +4,7 @@ class PlayersController < ApplicationController
   # GET /players
   # GET /players.json
   def index
-    @players = Player.all
+    @players = Player.all.where(player_params)
   end
 
   # GET /players/1
@@ -48,6 +48,6 @@ class PlayersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def player_params
-      params.require(:player).permit(:census_plus_data_id, :server_id, :faction, :race, :class, :name, :level)
+      params.require(:player).permit(:census_plus_datum_id, :server_id, :faction, :race, :class, :name, :level)
     end
 end
