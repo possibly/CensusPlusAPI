@@ -1,3 +1,3 @@
 class User < ApplicationRecord
-  mount_uploader :census_plus_data, CensusPlusDataUploader
+  mount_base64_uploader :census_plus_data, CensusPlusDataUploader
 end
