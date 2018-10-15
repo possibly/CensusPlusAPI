@@ -1,4 +1,4 @@
-class CensusPlusDataUploader < CarrierWave::Uploader::Base
+class CensusPlusFileUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick

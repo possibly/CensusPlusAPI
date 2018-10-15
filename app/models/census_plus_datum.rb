@@ -1,3 +1,5 @@
+require 'CensusPlusReader.rb'
+
 class CensusPlusDatum < ApplicationRecord
-  mount_base64_uploader :census_plus_data, CensusPlusDataUploader
+  mount_base64_uploader :file, CensusPlusFileUploader
 end

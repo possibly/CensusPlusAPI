@@ -48,6 +48,6 @@ class CensusPlusDataController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def census_plus_datum_params
-      params.fetch(:census_plus_datum, {})
+      params.require(:census_plus_datum).permit(:file)
     end
 end
