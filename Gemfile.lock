@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/possibly/censusplus-db-reader.git
+  revision: 3531780b7b16bafe08541720ca3537a78dadb4da
+  specs:
+    censusplusreader (0.1.0)
+      json
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -65,6 +72,7 @@ GEM
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
+    json (2.1.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -152,6 +160,7 @@ DEPENDENCIES
   byebug
   carrierwave
   carrierwave-base64
+  censusplusreader!
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   puma (~> 3.11)

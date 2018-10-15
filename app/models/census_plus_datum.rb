@@ -1,5 +1,3 @@
-require 'CensusPlusReader.rb'
-
 class CensusPlusDatum < ApplicationRecord
   after_save :census_to_json
   after_save :scan_census
@@ -45,6 +43,6 @@ class CensusPlusDatum < ApplicationRecord
     end
 
     def census_to_json
-      @census = CensusPlusReader.to_json(self.file.path)
+      @census = Censusplusreader.to_json(self.file.path)
     end
 end
