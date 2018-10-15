@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  census_plus_data: one
+  server: one
+  faction: MyString
+  race: MyString
+  class: MyString
+  name: MyString
+  level: 1
+
+two:
+  census_plus_data: two
+  server: two
+  faction: MyString
+  race: MyString
+  class: MyString
+  name: MyString
+  level: 1
