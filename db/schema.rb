@@ -10,13 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_15_051455) do
+ActiveRecord::Schema.define(version: 2018_10_15_163553) do
 
   create_table "census_plus_data", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "file"
-    t.string "json"
+  end
+
+  create_table "servers", force: :cascade do |t|
+    t.string "name"
+    t.integer "census_plus_datum_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["census_plus_datum_id"], name: "index_servers_on_census_plus_datum_id"
   end
 
 end

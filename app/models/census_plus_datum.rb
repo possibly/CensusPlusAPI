@@ -1,12 +1,19 @@
 require 'CensusPlusReader.rb'
 
 class CensusPlusDatum < ApplicationRecord
-  before_save :file_to_json
+  after_save :scan_census
+
+  has_many :servers
 
   mount_base64_uploader :file, CensusPlusFileUploader, :dependent => :destroy
 
   private
-    def file_to_json
-      assign_attributes(:json => CensusPlusReader.to_json(self.file.path))
+    def scan_census
+      data = census_to_json
+      self.servers << Server.data_to_servers(data["Servers"])
+    end
+
+    def census_to_json
+      CensusPlusReader.to_json(self.file.path)
     end
 end
