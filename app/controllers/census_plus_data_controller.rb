@@ -5,6 +5,9 @@ class CensusPlusDataController < ApplicationController
   # GET /census_plus_data.json
   def index
     @census_plus_data = CensusPlusDatum.all
+    if params['servers'].present? && servers_params.present?
+      @census_plus_data = @census_plus_data.joins(:servers).where(servers: {}.merge(servers_params))
+    end
   end
 
   # GET /census_plus_data/1
@@ -49,5 +52,9 @@ class CensusPlusDataController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def census_plus_datum_params
       params.require(:census_plus_datum).permit(:file)
+    end
+
+    def servers_params
+      params.require(:servers).permit(:id, :name, :created_at)
     end
 end
