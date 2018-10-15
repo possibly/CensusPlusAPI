@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :guilds
   resources :players
   resources :servers
   resources :census_plus_data

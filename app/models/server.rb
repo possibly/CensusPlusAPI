@@ -1,6 +1,7 @@
 class Server < ApplicationRecord
   belongs_to :census_plus_datum
   has_many :players
+  has_many :guilds
 
   validates :name, presence: true
   validates :census_plus_datum, presence: true

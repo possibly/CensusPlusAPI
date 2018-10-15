@@ -14,15 +14,15 @@ class Player < ApplicationRecord
       values.each do |race, values|
         values.each do |pclass, values|
           values.each do |pname, values|
-            values.each do |level, guild_name, **last_seen|
-              players << Player.new(
-                faction: faction,
-                race: race,
-                klass: pclass,
-                name: pname,
-                level: level
-              )
-            end
+            level, guild_name, *last_seen = values
+            players << Player.new(
+              faction: faction,
+              race: race,
+              klass: pclass,
+              name: pname,
+              level: level,
+              guild_name: guild_name
+            )
           end
         end
       end

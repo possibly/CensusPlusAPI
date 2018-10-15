@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  census_plus_datum: 
+  server: one
+
+two:
+  census_plus_datum: 
+  server: two

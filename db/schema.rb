@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_15_164517) do
+ActiveRecord::Schema.define(version: 2018_10_15_184252) do
 
   create_table "census_plus_data", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(version: 2018_10_15_164517) do
     t.index ["server_id"], name: "index_characters_on_server_id"
   end
 
+  create_table "guilds", force: :cascade do |t|
+    t.integer "census_plus_datum_id"
+    t.integer "server_id"
+    t.string "name"
+    t.string "faction"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["census_plus_datum_id"], name: "index_guilds_on_census_plus_datum_id"
+    t.index ["server_id"], name: "index_guilds_on_server_id"
+  end
+
   create_table "players", force: :cascade do |t|
     t.integer "census_plus_datum_id"
     t.integer "server_id"
@@ -42,7 +53,12 @@ ActiveRecord::Schema.define(version: 2018_10_15_164517) do
     t.integer "level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "guild_id"
+    t.string "guild_rank"
+    t.integer "guild_rank_index"
+    t.string "guild_name"
     t.index ["census_plus_datum_id"], name: "index_players_on_census_plus_datum_id"
+    t.index ["guild_id"], name: "index_players_on_guild_id"
     t.index ["server_id"], name: "index_players_on_server_id"
   end
 
