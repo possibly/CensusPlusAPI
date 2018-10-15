@@ -12,6 +12,10 @@ class CensusPlusDataController < ApplicationController
     if params['players'].present? && players_params.present?
       @census_plus_data = @census_plus_data.joins(:players).where(players: {}.merge(players_params))
     end
+
+    if params['guilds'].present? && guilds_params.present?
+      @census_plus_data = @census_plus_data.joins(:guilds).where(guilds: {}.merge(guilds_params))
+    end
   end
 
   # GET /census_plus_data/1
@@ -64,5 +68,9 @@ class CensusPlusDataController < ApplicationController
 
     def players_params
       params.require(:players).permit(:id, :name, :faction, :race, :klass, :level, :guild_name, :guild_rank, :guild_rank_index)
+    end
+
+    def guilds_params
+      params.require(:guilds).permit(:id, :name, :faction)
     end
 end
