@@ -1,7 +1,7 @@
 require 'CensusPlusReader.rb'
 
 class CensusPlusDatum < ApplicationRecord
-  after_save :file_to_json
+  before_save :file_to_json
 
   mount_base64_uploader :file, CensusPlusFileUploader, :dependent => :destroy
 
