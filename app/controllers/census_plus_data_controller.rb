@@ -16,6 +16,20 @@ class CensusPlusDataController < ApplicationController
     if params['guilds'].present? && guilds_params.present?
       @census_plus_data = @census_plus_data.joins(:guilds).where(guilds: {}.merge(guilds_params))
     end
+
+    if params['times'].present?
+      if times_params[:exactly].present?
+        @census_plus_data = @census_plus_data.where(created_at: times_params[:exactly])
+      else
+        if times_params[:before].present?
+          @census_plus_data = @census_plus_data.where('census_plus_data.created_at <= ?', times_params[:before])
+        end
+
+        if times_params[:after].present?
+          @census_plus_data = @census_plus_data.where('census_plus_data.created_at >= ?', times_params[:after])
+        end
+      end
+    end
   end
 
   # GET /census_plus_data/1
@@ -72,5 +86,9 @@ class CensusPlusDataController < ApplicationController
 
     def guilds_params
       params.require(:guilds).permit(:id, :name, :faction)
+    end
+
+    def times_params
+      params.require(:times).permit(:before, :after, :exactly)
     end
 end
