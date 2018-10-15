@@ -6,6 +6,6 @@ class Server < ApplicationRecord
   validates :name, presence: true
 
   def self.data_to_servers(servers)
-    servers.keys.map { |name| Server.find_by_or_create_by(name: name) }
+    servers.keys.map { |name| Server.find_or_create_by(name: name) }
   end
 end
