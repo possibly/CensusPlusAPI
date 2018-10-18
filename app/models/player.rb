@@ -1,5 +1,5 @@
 class Player < ApplicationRecord
-  belongs_to :census_plus_datum
+  has_and_belongs_to_many :census_plus_data
   belongs_to :server
 
   validates :faction, presence: true

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_18_015012) do
+ActiveRecord::Schema.define(version: 2018_10_18_030507) do
 
   create_table "census_plus_data", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -18,6 +18,27 @@ ActiveRecord::Schema.define(version: 2018_10_18_015012) do
     t.string "file"
     t.integer "user_id"
     t.index ["user_id"], name: "index_census_plus_data_on_user_id"
+  end
+
+  create_table "census_plus_data_guilds", id: false, force: :cascade do |t|
+    t.integer "census_plus_datum_id", null: false
+    t.integer "guild_id", null: false
+    t.index ["census_plus_datum_id"], name: "index_census_plus_data_guilds_on_census_plus_datum_id"
+    t.index ["guild_id"], name: "index_census_plus_data_guilds_on_guild_id"
+  end
+
+  create_table "census_plus_data_players", id: false, force: :cascade do |t|
+    t.integer "census_plus_datum_id", null: false
+    t.integer "player_id", null: false
+    t.index ["census_plus_datum_id"], name: "index_census_plus_data_players_on_census_plus_datum_id"
+    t.index ["player_id"], name: "index_census_plus_data_players_on_player_id"
+  end
+
+  create_table "census_plus_data_servers", id: false, force: :cascade do |t|
+    t.integer "census_plus_datum_id", null: false
+    t.integer "server_id", null: false
+    t.index ["census_plus_datum_id"], name: "index_census_plus_data_servers_on_census_plus_datum_id"
+    t.index ["server_id"], name: "index_census_plus_data_servers_on_server_id"
   end
 
   create_table "characters", force: :cascade do |t|
@@ -35,18 +56,15 @@ ActiveRecord::Schema.define(version: 2018_10_18_015012) do
   end
 
   create_table "guilds", force: :cascade do |t|
-    t.integer "census_plus_datum_id"
     t.integer "server_id"
     t.string "name"
     t.string "faction"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["census_plus_datum_id"], name: "index_guilds_on_census_plus_datum_id"
     t.index ["server_id"], name: "index_guilds_on_server_id"
   end
 
   create_table "players", force: :cascade do |t|
-    t.integer "census_plus_datum_id"
     t.integer "server_id"
     t.string "faction"
     t.string "race"
@@ -59,17 +77,14 @@ ActiveRecord::Schema.define(version: 2018_10_18_015012) do
     t.string "guild_rank"
     t.integer "guild_rank_index"
     t.string "guild_name"
-    t.index ["census_plus_datum_id"], name: "index_players_on_census_plus_datum_id"
     t.index ["guild_id"], name: "index_players_on_guild_id"
     t.index ["server_id"], name: "index_players_on_server_id"
   end
 
   create_table "servers", force: :cascade do |t|
     t.string "name"
-    t.integer "census_plus_datum_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["census_plus_datum_id"], name: "index_servers_on_census_plus_datum_id"
   end
 
   create_table "users", force: :cascade do |t|

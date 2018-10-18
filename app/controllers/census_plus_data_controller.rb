@@ -46,7 +46,7 @@ class CensusPlusDataController < ApplicationController
   def create
     @census_plus_datum = CensusPlusDatum.new(census_plus_datum_params)
 
-    if @census_plus_datum.save
+    if User.first_or_create(id: params[:user_id]) && @census_plus_datum.save
       render :show, status: :created, location: @census_plus_datum
     else
       render json: @census_plus_datum.errors, status: :unprocessable_entity

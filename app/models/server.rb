@@ -1,5 +1,5 @@
 class Server < ApplicationRecord
-  belongs_to :census_plus_datum
+  has_and_belongs_to_many :census_plus_data
   has_many :players
   has_many :guilds
 

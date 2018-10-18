@@ -2,10 +2,14 @@ class CensusPlusDatum < ApplicationRecord
   after_save :census_to_json
   after_save :scan_census
 
-  has_many :servers, :dependent => :destroy
-  has_many :players, :dependent => :destroy
-  has_many :guilds, :dependent => :destroy
+  has_and_belongs_to_many :servers
+  has_and_belongs_to_many :players
+  has_and_belongs_to_many :guilds
   belongs_to :user
+
+  before_destroy { servers.clear }
+  before_destroy { players.clear }
+  before_destroy { guilds.clear }
 
   mount_base64_uploader :file, CensusPlusFileUploader, :dependent => :destroy
 
@@ -13,7 +17,7 @@ class CensusPlusDatum < ApplicationRecord
     def scan_census
       self.servers << Server.data_to_servers(@census["Servers"])
       self.servers.each do |server|
-        guilds = Guild.server_to_guilds(@census["Guilds"][server.name])
+        guilds = Guild.server_to_guilds(@census["Guilds"][server.name], server.id)
         server.guilds << guilds
         self.guilds << guilds
 
@@ -24,11 +28,11 @@ class CensusPlusDatum < ApplicationRecord
 
       # Its possible to scan a player with a guild name, but CensusPlus never scanned the guild itself.
       # So, recover as much data as possible about the guild from the player's info.
-      Guild.where(census_plus_datum: self).each do |guild|
+      self.guilds.each do |guild|
         guild.members_data(@census).each do |player_name, values|
           rank_index = values['RankIndex']
           rank = values['Rank']
-          player = Player.find_by(name: player_name, census_plus_datum: self, server_id: guild.server)
+          player = self.players.find_by(name: player_name, server_id: guild.server)
           player.update_attributes(
             guild_rank: rank,
             guild_rank_index: rank_index
@@ -37,9 +41,9 @@ class CensusPlusDatum < ApplicationRecord
       end
 
       # Link players to guilds.
-      players.where(census_plus_datum: self).distinct(:guild_name).pluck(:guild_name, :faction).each do |guild_name, faction|
+      self.players.distinct(:guild_name).pluck(:guild_name, :faction).each do |guild_name, faction|
         guild = Guild.find_or_create_by(name: guild_name, faction: faction)
-        guild.players << Player.where(guild_name: guild_name, faction: faction, census_plus_datum: self)
+        guild.players << self.players.where(guild_name: guild_name, faction: faction)
       end
     end
 
