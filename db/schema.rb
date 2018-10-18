@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_15_184252) do
+ActiveRecord::Schema.define(version: 2018_10_18_015012) do
 
   create_table "census_plus_data", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "file"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_census_plus_data_on_user_id"
   end
 
   create_table "characters", force: :cascade do |t|
@@ -68,6 +70,11 @@ ActiveRecord::Schema.define(version: 2018_10_15_184252) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["census_plus_datum_id"], name: "index_servers_on_census_plus_datum_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

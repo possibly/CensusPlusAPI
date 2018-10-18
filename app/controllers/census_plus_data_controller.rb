@@ -30,6 +30,10 @@ class CensusPlusDataController < ApplicationController
         end
       end
     end
+
+    if params['user_id'].present?
+      @census_plus_data = @census_plus_data.where(user_id: params['user_id'])
+    end
   end
 
   # GET /census_plus_data/1
@@ -73,7 +77,7 @@ class CensusPlusDataController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def census_plus_datum_params
-      params.permit(:file)
+      params.permit(:file, :user_id)
     end
 
     def servers_params

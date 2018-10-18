@@ -2,9 +2,10 @@ class CensusPlusDatum < ApplicationRecord
   after_save :census_to_json
   after_save :scan_census
 
-  has_many :servers
-  has_many :players
-  has_many :guilds
+  has_many :servers, :dependent => :destroy
+  has_many :players, :dependent => :destroy
+  has_many :guilds, :dependent => :destroy
+  belongs_to :user
 
   mount_base64_uploader :file, CensusPlusFileUploader, :dependent => :destroy
 
