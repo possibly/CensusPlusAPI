@@ -39,9 +39,7 @@ class Player < ApplicationRecord
     if player_guild.present?
       player_guild_member_info = census["Guilds"][server_name][faction][guild_name]["Members"][player_name]
       if player_guild_member_info.present?
-        player_guild_member_info.each do |player_name, values|
-          return [values['RankIndex'], values['Rank']]
-        end
+        return [player_guild_member_info["Rank"], player_guild_member_info["RankIndex"]]
       end
     end
     return ['', '']
