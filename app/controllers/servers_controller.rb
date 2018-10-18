@@ -4,7 +4,7 @@ class ServersController < ApplicationController
   # GET /servers
   # GET /servers.json
   def index
-    @servers = Server.all.where(server_params)
+    @servers = Server.all.where(params['server'].present? ? server_params : {})
   end
 
   # GET /servers/1

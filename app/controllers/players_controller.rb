@@ -4,7 +4,7 @@ class PlayersController < ApplicationController
   # GET /players
   # GET /players.json
   def index
-    @players = Player.all.where(player_params)
+    @players = Player.all.where(params['player'].present? ? player_params : {})
   end
 
   # GET /players/1
