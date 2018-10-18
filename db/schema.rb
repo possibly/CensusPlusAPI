@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_18_030507) do
+ActiveRecord::Schema.define(version: 2018_10_18_050941) do
 
   create_table "census_plus_data", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -25,13 +25,6 @@ ActiveRecord::Schema.define(version: 2018_10_18_030507) do
     t.integer "guild_id", null: false
     t.index ["census_plus_datum_id"], name: "index_census_plus_data_guilds_on_census_plus_datum_id"
     t.index ["guild_id"], name: "index_census_plus_data_guilds_on_guild_id"
-  end
-
-  create_table "census_plus_data_players", id: false, force: :cascade do |t|
-    t.integer "census_plus_datum_id", null: false
-    t.integer "player_id", null: false
-    t.index ["census_plus_datum_id"], name: "index_census_plus_data_players_on_census_plus_datum_id"
-    t.index ["player_id"], name: "index_census_plus_data_players_on_player_id"
   end
 
   create_table "census_plus_data_servers", id: false, force: :cascade do |t|
@@ -70,13 +63,14 @@ ActiveRecord::Schema.define(version: 2018_10_18_030507) do
     t.string "race"
     t.string "klass"
     t.string "name"
-    t.integer "level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "guild_id"
     t.string "guild_rank"
     t.integer "guild_rank_index"
     t.string "guild_name"
+    t.integer "census_plus_datum_id"
+    t.integer "level"
     t.index ["guild_id"], name: "index_players_on_guild_id"
     t.index ["server_id"], name: "index_players_on_server_id"
   end
@@ -85,6 +79,8 @@ ActiveRecord::Schema.define(version: 2018_10_18_030507) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_servers_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
